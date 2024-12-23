@@ -1,3 +1,4 @@
+// Importer Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
@@ -16,25 +17,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Fonction pour envoyer un message dans Firestore
+// Fonction pour envoyer un message
 async function sendMessage(messageText) {
   try {
-    const docRef = await addDoc(collection(db, "messages"), {
+    // Ajouter le message dans Firestore
+    await addDoc(collection(db, "messages"), {
       message: messageText,
       date: new Date().toISOString()
     });
-    console.log("Message ajouté avec l'ID : ", docRef.id);
+    console.log("Message envoyé avec succès!");
   } catch (e) {
-    console.error("Erreur lors de l'ajout du message : ", e);
+    console.error("Erreur lors de l'envoi du message: ", e);
   }
 }
 
-// Fonction pour récupérer les messages en temps réel
+// Fonction pour récupérer et afficher les messages en temps réel
 function getMessages() {
   const messagesContainer = document.getElementById('message-history');
   const messagesCollection = collection(db, "messages");
 
-  // Créer un écouteur en temps réel pour récupérer les messages
+  // Écouter les mises à jour en temps réel dans la collection Firestore
   onSnapshot(messagesCollection, (snapshot) => {
     messagesContainer.innerHTML = ''; // Effacer les messages précédents
 
@@ -47,12 +49,6 @@ function getMessages() {
   });
 }
 
-// Lancer la récupération des messages en temps réel
+// Appeler la fonction pour démarrer l'écoute des messages
 getMessages();
 
-// Gérer la soumission du formulaire pour envoyer un message
-document.getElementById('message-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const message = document.getElementById('message').value;
-  sendMessage(message);
-});
