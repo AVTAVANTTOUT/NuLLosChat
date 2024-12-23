@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie Anonyme</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messagerie Anonyme</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Envoyer un Message Anonyme</h1>
-    <form id="message-form">
-        <label for="message">Votre message :</label><br>
-        <textarea name="message" id="message" rows="5" cols="50"></textarea><br><br>
-        <button type="submit">Envoyer</button>
-    </form>
+  <h1>Envoyer un Message Anonyme</h1>
+  <form id="message-form">
+    <label for="message">Votre message :</label><br>
+    <textarea id="message" name="message" rows="5" cols="50"></textarea><br><br>
+    <button type="submit">Envoyer</button>
+  </form>
+  
+  <hr>
+  <h2>Historique des messages</h2>
+  <div id="message-history">
+    <!-- Les messages seront injectés ici -->
+  </div>
 
-    <hr>
-    <h2>Historique des messages</h2>
-    <div id="message-history"></div>
-
-    <!-- Firebase JS SDK -->
-    <script type="module" src="js/firebase.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script> <!-- Si tu as un autre fichier JS pour le comportement -->
 </body>
 </html>
