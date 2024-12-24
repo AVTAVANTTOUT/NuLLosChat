@@ -3,24 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Messagerie Anonyme</title>
+  <meta name="theme-color" content="#121212">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <title>NullosChat</title>
 </head>
 <body>
-  <h1>Envoyer un Message Anonyme</h1>
-  <form id="message-form">
-    <label for="message">Votre message :</label><br>
-    <textarea id="message" name="message" rows="5" cols="50"></textarea><br><br>
-    <button type="submit">Envoyer</button>
-  </form>
-  
-  <hr>
-  <h2>Historique des messages</h2>
-  <div id="message-history">
-    <!-- Les messages seront injectés ici -->
-  </div>
+  <header>
+    <h1>NullosChat</h1>
+    <p>Messagerie Anonyme en Temps Réel</p>
+  </header>
 
-  <script src="firebase.js"></script>
-  <script src="app.js"></script> <!-- Si tu as un autre fichier JS pour le comportement -->
+  <main>
+    <form id="message-form">
+      <textarea id="message-input" placeholder="Écrivez votre message ici..." rows="4"></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+
+    <section>
+      <h2>Messages</h2>
+      <div id="message-history"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 NullosChat - Tous droits réservés</p>
+  </footer>
+
+  <script type="module" src="js/script.js"></script>
 </body>
 </html>
