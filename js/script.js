@@ -38,17 +38,21 @@ messageForm.addEventListener("submit", async (e) => {
       message: messageText,
       date: new Date().toISOString(),
     });
-    messageInput.value = "";
+    messageInput.value = "";  // Réinitialiser le champ de message
   } catch (error) {
     console.error("Erreur lors de l'envoi du message:", error);
   }
 });
 
+// Récupération et affichage des messages triés
 onSnapshot(collection(db, "messages"), (snapshot) => {
   messageHistory.innerHTML = "";
 
-  snapshot.forEach((doc) => {
-    const { pseudo, message, date } = doc.data();
+  const sortedMessages = snapshot.docs
+    .map(doc => doc.data())
+    .sort((a, b) => new Date(a.date) - new Date(b.date));  // Tri par date
+
+  sortedMessages.forEach(({ pseudo, message, date }) => {
     const messageElement = document.createElement("p");
     messageElement.textContent = `[${new Date(date).toLocaleTimeString()}] ${pseudo} : ${message}`;
     messageHistory.appendChild(messageElement);
