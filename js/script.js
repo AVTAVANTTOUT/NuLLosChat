@@ -25,31 +25,32 @@ const messageHistory = document.getElementById("message-history");
 messageForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const messageText = messageInput.value.trim();
+  const pseudo = document.getElementById("pseudo-input").value.trim();
 
-  if (!messageText) {
-    alert("Le message ne peut pas être vide !");
+  if (!messageText || !pseudo) {
+    alert("Le message et le pseudo ne peuvent pas être vides !");
     return;
   }
 
   try {
     await addDoc(collection(db, "messages"), {
+      pseudo: pseudo,
       message: messageText,
       date: new Date().toISOString(),
     });
-    messageInput.value = ""; // Réinitialiser le champ de texte
+    messageInput.value = "";
   } catch (error) {
     console.error("Erreur lors de l'envoi du message:", error);
   }
 });
 
-// Récupération et affichage des messages
 onSnapshot(collection(db, "messages"), (snapshot) => {
-  messageHistory.innerHTML = ""; // Réinitialiser l'affichage
+  messageHistory.innerHTML = "";
 
   snapshot.forEach((doc) => {
-    const { message, date } = doc.data();
+    const { pseudo, message, date } = doc.data();
     const messageElement = document.createElement("p");
-    messageElement.textContent = `[${new Date(date).toLocaleTimeString()}] ${message}`;
+    messageElement.textContent = `[${new Date(date).toLocaleTimeString()}] ${pseudo} : ${message}`;
     messageHistory.appendChild(messageElement);
   });
 });
